@@ -17,35 +17,35 @@ struct Cli {
 
 #[derive(Debug, Subcommand)]
 enum Commands {
-    Install {},
+    Install(InstallArgs),
+    Init,
 }
 
 #[derive(Debug, Args)]
 struct InstallArgs {
-    package: String,
+    /// The package to install
+    name: String,
 }
 
-fn main() {
+#[tokio::main]
+async fn main() {
+    dotenv::dotenv().ok();
     let args = Cli::parse();
 
+    let pwd = env::current_dir().unwrap();
+
     match args.commands {
-        Commands::Install {} => {
-            println!("Installing package...");
+        Commands::Install(package) => {
+            let mut pkg_installer = installer::PackageInstall::new();
+            pkg_installer
+                .install(pwd.to_str().unwrap(), &package.name)
+                .await;
+        }
+        Commands::Init => {
+            let pwd = env::current_dir().unwrap();
+            let path = pwd.to_str().unwrap();
+
+            installer::init_fxpkg(path);
         }
     }
 }
-
-/*#[tokio::main]
-async fn main() {
-    dotenv::dotenv().ok();
-
-    let package = env::args().nth(2).expect("missing package");
-    let mut pkg = installer::PackageInstall::new();
-
-    pkg.install(package.as_str());
-
-    match registry::Registry::download_package("module.lua").await {
-        Ok(_) => println!("Package downloaded successfully"),
-        Err(_) => eprintln!("Failed to download package"),
-    }
-} */
