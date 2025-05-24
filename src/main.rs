@@ -1,6 +1,23 @@
 // fxpkg add test_module@latest
 // fxpkg add test_module
 
+/**
+ *
+ * do we create a catetory or just a directory for modules?
+ * do we ensure [package] to the server.cfg?
+ *
+ * [fx_modules]/pure_lua_resource
+ *  metadata.json
+ *      - contains version number
+ *  fx_manifest.lua
+ *  main.lua
+ *
+ *  ----- [some_resource/fxmanifest.lua]
+ *  shared_scripts "fx_modules/pure_lua_resource"
+ *
+ *
+ *
+*/
 pub mod installer;
 pub mod registry;
 

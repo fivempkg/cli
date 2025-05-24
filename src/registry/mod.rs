@@ -31,7 +31,7 @@ impl Registry {
         Ok(client)
     }
 
-    pub async fn download_package(key: &str) -> Result<String, ()> {
+    pub async fn download_package(key: &str, version: &str) -> Result<String, ()> {
         let client = match Registry::get_client().await {
             Ok(client) => client,
             Err(_) => {

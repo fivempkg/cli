@@ -29,7 +29,7 @@ impl PackageInstall {
             self.version = "latest".to_string();
         }
 
-        match Registry::download_package("module.lua").await {
+        match Registry::download_package(&self.package_name, &self.version).await {
             Ok(_) => println!("Package downloaded successfully"),
             Err(_) => eprintln!("Failed to download package"),
         }
