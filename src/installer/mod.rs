@@ -56,6 +56,10 @@ pub fn init_fxpkg(working_dir: &str) {
         let mut file = std::io::BufWriter::new(file);
         file.write_all(stub_content.as_bytes())
             .expect("Failed to write to modules.json file");
+        
+        println!("Created modules.json file successfully.");
+    } else {
+        println!("modules.json file already exists.");
     }
 }
 
