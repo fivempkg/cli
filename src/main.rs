@@ -36,6 +36,7 @@ struct Cli {
 enum Commands {
     Install(InstallArgs),
     Init,
+    Version,
 }
 
 #[derive(Debug, Args)]
@@ -63,6 +64,9 @@ async fn main() {
             let path = pwd.to_str().unwrap();
 
             installer::init_fxpkg(path);
+        }
+        Commands::Version => {
+            println!("fxpkg version 0.1.0");
         }
     }
 }
